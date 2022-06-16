@@ -1,0 +1,22 @@
+<mvc:View controllerName="comfinanceposting.controller.MainView" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+					<HBox>
+						<Label text="Document Date" class="sapUiSmallMarginTop sapUiTinyMarginBegin sapUiSmallMarginEnd"/>
+						<DatePicker/>
+						<Label text="Posting Date" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+						<DatePicker/>
+						<Label text="Send To SABRS" class="sapUiSmallMarginTop sapUiSmallMarginBegin "/>
+						<CheckBox/>
+					</HBox>
+					<core:Fragment fragmentName="comfinanceposting.fragments.StdDocTable" type="XML"/>
+					<core:Fragment fragmentName="comfinanceposting.fragments.SenderInfo" type="XML"/>
+					<core:Fragment fragmentName="comfinanceposting.fragments.ReceiverInfo" type="XML"/>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

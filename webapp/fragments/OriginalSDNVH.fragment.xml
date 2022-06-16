@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.ui.comp.valuehelpdialog" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:m="sap.m">
+	<ValueHelpDialog id="idOriginalSDNVH" title="OriginalSDN" ok=".onOriginalSDNVHOkPress" cancel=".onValueHelpCancelPress"
+		afterClose=".onValueHelpAfterClose" supportMultiselect="false" key="OrgSdn">
+		<filterBar>
+			<fb:FilterBar id="_IDGenFilterBar1" advancedMode="true" search=".onSearchOriginalSDN">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem id="_IDGenFilterGroupItem1" groupName="__$INTERNAL$" name="OrgSdn" label="OrgSdn" visibleInFilterBar="true">
+						<fb:control>
+							<m:Input id="_IDGenInput1" name="OrgSdn" value="{OriginalSDNFilter>/OrgSdn}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="_IDGenFilterGroupItem2" groupName="__$INTERNAL$" name="FcnJon" label="FcnJon" visibleInFilterBar="true">
+						<fb:control>
+							<m:Input id="_IDGenInput2" name="FcnJon" value="{OriginalSDNFilter>/FcnJon}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="_IDGenFilterGroupItem3" groupName="__$INTERNAL$" name="IcnJon" label="IcnJon" visibleInFilterBar="true">
+						<fb:control>
+							<m:Input id="_IDGenInput3" name="IcnJon" value="{OriginalSDNFilter>/IcnJon}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog>
+</core:FragmentDefinition>

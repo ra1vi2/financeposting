@@ -1,0 +1,53 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Table >
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<ToolbarSpacer/>
+					<Button text="Calculate" type="Emphasized"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<infoToolbar>
+			<OverflowToolbar>
+				<Label text="{i18n>table1HeaderText}" class="sapUiLargeMarginBegin"/>
+			</OverflowToolbar>
+		</infoToolbar>
+		<columns>
+			<Column >
+				<Text text="Original SDN"/>
+			</Column>
+			<Column>
+				<Text text="Total Liquidations"/>
+			</Column>
+			<Column>
+				<Text text="Previous Allocations"/>
+			</Column>
+			<Column>
+				<Text text="Available Balance"/>
+			</Column>
+			<Column>
+				<Text text="Allocation Amount"/>
+			</Column>
+			<Column>
+				<Text text="Remaining Balance"/>
+			</Column>
+			<Column>
+				<Text text="Available Quantity"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem vAlign="Middle">
+				<cells>
+					<Input showValueHelp="true" valueHelpRequest="onOriginalSDNVH"/>
+					<Text text="{SupplierName}"/>
+					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+					<Text text="{SupplierName}"/>
+					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+					<Text text="{SupplierName}"/>
+					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>

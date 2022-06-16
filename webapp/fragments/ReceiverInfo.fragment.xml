@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Table class="sapUiMediumMarginTop">
+		<infoToolbar>
+			<OverflowToolbar>
+				<Label text="{i18n>table3HeaderText}" class="sapUiLargeMarginBegin"/>
+			</OverflowToolbar>
+		</infoToolbar>
+		<columns>
+			<Column >
+				<Text text="FCN-JON"/>
+			</Column>
+			<Column>
+				<Text text="ICN-JON"/>
+			</Column>
+			<Column>
+				<Text text="KEYOP"/>
+			</Column>
+			<Column>
+				<Text text="SHOP"/>
+			</Column>
+			<Column>
+				<Text text="TS/TSD"/>
+			</Column>
+			<Column>
+				<Text text="WBS Element"/>
+			</Column>
+			<Column>
+				<Text text="SDN for Posting"/>
+			</Column>
+			<Column>
+				<Text text="Quantity"/>
+			</Column>
+			<Column>
+				<Text text="Amount"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem vAlign="Middle">
+				<cells>
+					<Input/>
+					<Text text="{SupplierName}"/>
+					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+					<Text text="{SupplierName}"/>
+					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+					<Text text="{SupplierName}"/>
+					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</core:FragmentDefinition>
