@@ -11,7 +11,9 @@ sap.ui.define([
 		onInit: function() {
 			this.getView().setModel(new JSONModel({}), "OriginalSDNFilter");
 			this.stdDocTable = this.byId("idOriginalStdDocTable");
-			this.getView().setModel(new JSONModel({OrgSdn : ""}), "orgsdnmodel");
+			this.getView().setModel(new JSONModel({
+				OrgSdn: ""
+			}), "orgsdnmodel");
 			this.getView().setModel(new JSONModel({}), "MainData");
 			this.getView().setModel(new JSONModel({}), "receiverdata");
 		},
@@ -49,7 +51,7 @@ sap.ui.define([
 			var aFilter = [];
 			oModel.read("/CalculateSet", {
 				filters: aFilter,
-				success: function(oResponse){
+				success: function(oResponse) {
 					this.getView().getModel("orgsdnmodel").setData(oResponse);
 				},
 				error: function(oError) {
@@ -57,15 +59,40 @@ sap.ui.define([
 				}
 			}.bind(this));
 		},
-		onSetDocumentDate:function(oEvent){
+		onSetDocumentDate: function(oEvent) {
 			this.byId("idPostingDate").setMinDate(oEvent.getSource().getDateValue());
 		},
-		onPressAddReceiver:function(){
+		onPressAddReceiver: function() {
 			var oModel = this.getView().getModel("receiverdata");
 			var aData = oModel().getData();
 			aData.push({
-			    
+
 			});
+		},
+		onSearchOriginalSDN: function() {
+			this._filterVHTable("OriginalSDNFilter", "/OrginialSDNVHSet");
+		},
+		_filterVHTable: function(sFilterModel, sEntitySet) {
+			var aFilter = [];
+			var oFilterQueryData = this.getView().getModel(sFilterModel).getData();
+
+			if (oFilterQueryData) {
+				aFilter = BO.getVHFilterQuery(oFilterQueryData);
+				//this._oValueHelpDialog.setBusy(true);
+				this._oValueHelpDialog.getTableAsync().then(
+					function(oTable) {
+						oTable.setBusy(true);
+						if (oTable.bindRows) {
+							oTable.bindAggregation("rows", {
+								path: sEntitySet,
+								filters: aFilter
+							});
+						}
+						this._oValueHelpDialog.update();
+						oTable.setBusy(false);
+					}.bind(this)
+				);
+			}
 		}
 
 	});

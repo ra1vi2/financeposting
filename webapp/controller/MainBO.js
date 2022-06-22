@@ -78,6 +78,20 @@ sap.ui.define(
 			onValueHelpAfterClose: function(globalThis) {
 				globalThis._oValueHelpDialog.destroy();
 			},
+			getVHFilterQuery: function(oFilterQueryData) {
+				var aQueryKeys = Object.keys(oFilterQueryData);
+				var aFilter = [];
+				aQueryKeys.forEach((key, index) => {
+					if (oFilterQueryData[key]) {
+						aFilter = this._updateFilterArray(
+							aFilter,
+							key,
+							oFilterQueryData[key]
+						);
+					}
+				});
+				return aFilter;
+			},
 
 			createColumnModel: function(sRequestedVH) {
 				if (sRequestedVH === "OriginalSDN") {

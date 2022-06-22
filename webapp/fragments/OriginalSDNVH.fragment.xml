@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.ui.comp.valuehelpdialog" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:m="sap.m">
 	<ValueHelpDialog id="idOriginalSDNVH" title="OriginalSDN" ok=".onOriginalSDNVHOkPress" cancel=".onValueHelpCancelPress"
-		afterClose=".onValueHelpAfterClose" supportMultiselect="false" key="OrgSdn">
+		afterClose=".onValueHelpAfterClose" supportMultiselect="false" key="OrgSdn" >
 		<filterBar>
 			<fb:FilterBar id="_IDGenFilterBar1" advancedMode="true" search=".onSearchOriginalSDN">
 				<fb:filterGroupItems>
