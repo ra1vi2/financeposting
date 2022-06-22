@@ -1,10 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Table >
+	<Table id="idOriginalStdDocTable" items="{orgsdnmodel>/}" >
 		<headerToolbar>
 			<OverflowToolbar>
 				<content>
 					<ToolbarSpacer/>
-					<Button text="Calculate" type="Emphasized"/>
+					<Button text="Calculate" type="Emphasized" press="onPressCalculate"/>
 				</content>
 			</OverflowToolbar>
 		</headerToolbar>
@@ -39,13 +39,13 @@
 		<items>
 			<ColumnListItem vAlign="Middle">
 				<cells>
-					<Input showValueHelp="true" valueHelpRequest="onOriginalSDNVH"/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+					<Input showValueHelp="true" valueHelpRequest="onOriginalSDNVH" value="{orgsdnmodel>OrgSdn}"/>
+					<Text text="{orgsdnmodel>TotLiq}"/>
+					<Text text="{orgsdnmodel>PrevAaloc}"/>
+					<Text text="{orgsdnmodel>AvailBal}"/>
+					<Text text="{orgsdnmodel>LocAmt}"/>
+					<Text text="{orgsdnmodel>RemainBal}"/>
+					<Text text="{orgsdnmodel>SendQty}"/>
 				</cells>
 			</ColumnListItem>
 		</items>

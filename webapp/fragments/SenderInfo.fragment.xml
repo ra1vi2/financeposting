@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Table class="sapUiMediumMarginTop">
+	<Table class="sapUiMediumMarginTop" items="{selectedOrgSDN>/}">
 		<infoToolbar>
 			<OverflowToolbar>
 				<Label text="{i18n>table2HeaderText}" class="sapUiLargeMarginBegin"/>
@@ -34,13 +34,12 @@
 		<items>
 			<ColumnListItem vAlign="Middle">
 				<cells>
-					<Input/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+					<Text text="{selectedOrgSDN>FcnJon}"/>
+					<Text text="{selectedOrgSDN>IcnJon}"/>
+					<Text text="{selectedOrgSDN>KeyOp}"/>
+					<Text text="{selectedOrgSDN>Shop}"/>
+					<Text text="{selectedOrgSDN>Ts}/{selectedOrgSDN>Tsd}"/>
+					<Text text="{selectedOrgSDN>Posnr}"/>
 				</cells>
 			</ColumnListItem>
 		</items>

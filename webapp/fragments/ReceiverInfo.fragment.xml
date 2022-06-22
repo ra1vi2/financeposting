@@ -1,5 +1,13 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Table class="sapUiMediumMarginTop">
+	<Table class="sapUiMediumMarginTop" items="{receiverdata>/}">
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<ToolbarSpacer/>
+					<Button text="Add" type="Emphasized" press="onPressAddReceiver"/>
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
 		<infoToolbar>
 			<OverflowToolbar>
 				<Label text="{i18n>table3HeaderText}" class="sapUiLargeMarginBegin"/>
@@ -37,13 +45,14 @@
 		<items>
 			<ColumnListItem vAlign="Middle">
 				<cells>
+					<Input value="{selectedOrgSDN>FcnJon}"/>
+					<Text text="{selectedOrgSDN>IcnJon}"/>
+					<Text text="{selectedOrgSDN>KeyOp}"/>
+					<Text text="{selectedOrgSDN>Shop}"/>
+					<Text text="{selectedOrgSDN>Ts}/{selectedOrgSDN>Tsd}"/>
+					<Text text="{selectedOrgSDN>Posnr}"/>
 					<Input/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
-					<Text text="{SupplierName}"/>
-					<Text text="{Width} x {Depth} x {Height} {DimUnit}"/>
+					<Input/>
 				</cells>
 			</ColumnListItem>
 		</items>

@@ -66,8 +66,7 @@ sap.ui.define(
 			onValueHelpOkPress: function(aTokens, oControl, globalThis) {
 				if (aTokens.length > 0) {
 					oControl.setSelectedKey(aTokens[0].getKey());
-					oControl.setValue(aTokens[0].getText());
-					// oControl.setValue(aTokens[0].getKey());
+					oControl.setValue(aTokens[0].getKey());
 				}
 				globalThis._oValueHelpDialog.close();
 			},
@@ -89,6 +88,24 @@ sap.ui.define(
 						}, {
 							label: "FcnJon",
 							template: "FcnJon"
+						}, {
+							label: "IcnJon",
+							template: "IcnJon"
+						}, {
+							label: "KeyOp",
+							template: "KeyOp"
+						}, {
+							label: "Shop",
+							template: "Shop"
+						}, {
+							label: "Ts",
+							template: "Ts"
+						}, {
+							label: "Tsd",
+							template: "Tsd"
+						}, {
+							label: "WBS Element",
+							template: "Posnr"
 						}]
 					});
 				}

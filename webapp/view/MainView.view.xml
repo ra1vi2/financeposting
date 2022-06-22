@@ -2,13 +2,13 @@
 	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core">
 	<App>
 		<pages>
-			<Page title="{i18n>title}">
+			<Page title="{i18n>title}" showFooter="true" floatingFooter="false">
 				<content>
 					<HBox>
 						<Label text="Document Date" class="sapUiSmallMarginTop sapUiTinyMarginBegin sapUiSmallMarginEnd"/>
-						<DatePicker/>
+						<DatePicker change="onSetDocumentDate" value="{path : 'MainData>/InvDate' , type : 'sap.ui.model.type.Date'}"/>
 						<Label text="Posting Date" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
-						<DatePicker/>
+						<DatePicker id="idPostingDate"/>
 						<Label text="Send To SABRS" class="sapUiSmallMarginTop sapUiSmallMarginBegin "/>
 						<CheckBox/>
 					</HBox>
@@ -16,6 +16,12 @@
 					<core:Fragment fragmentName="comfinanceposting.fragments.SenderInfo" type="XML"/>
 					<core:Fragment fragmentName="comfinanceposting.fragments.ReceiverInfo" type="XML"/>
 				</content>
+				<footer>
+					<OverflowToolbar id="otbFooter">
+						<ToolbarSpacer/>
+						<Button text="Post" press="onPressPostDocument"/>
+					</OverflowToolbar>
+				</footer>
 			</Page>
 		</pages>
 	</App>

@@ -10,6 +10,10 @@ sap.ui.define([
 	return Controller.extend("comfinanceposting.controller.MainView", {
 		onInit: function() {
 			this.getView().setModel(new JSONModel({}), "OriginalSDNFilter");
+			this.stdDocTable = this.byId("idOriginalStdDocTable");
+			this.getView().setModel(new JSONModel({OrgSdn : ""}), "orgsdnmodel");
+			this.getView().setModel(new JSONModel({}), "MainData");
+			this.getView().setModel(new JSONModel({}), "receiverdata");
 		},
 		onOriginalSDNVH: function(oEvent) {
 			var globalThis = this;
@@ -30,12 +34,38 @@ sap.ui.define([
 		onOriginalSDNVHOkPress: function(oEvent) {
 			var aTokens = oEvent.getParameter("tokens");
 			BO.onValueHelpOkPress(aTokens, this.currentOriginalSDN, this);
+			this.selectedOrgSDN = aTokens[0].getKey();
+			var selectedObject = oEvent.getSource()._oSelectedItems.items;
+			this.getView().setModel(new JSONModel(selectedObject), "selectedOrgSDN");
 		},
 		onValueHelpCancelPress: function() {
 			BO.onValueHelpCancelPress(this);
 		},
 		onValueHelpAfterClose: function() {
 			BO.onValueHelpAfterClose(this);
+		},
+		onPressCalculate: function() {
+			var oModel = this.getView().getModel();
+			var aFilter = [];
+			oModel.read("/CalculateSet", {
+				filters: aFilter,
+				success: function(oResponse){
+					this.getView().getModel("orgsdnmodel").setData(oResponse);
+				},
+				error: function(oError) {
+					sap.m.MessageBox.error();
+				}
+			}.bind(this));
+		},
+		onSetDocumentDate:function(oEvent){
+			this.byId("idPostingDate").setMinDate(oEvent.getSource().getDateValue());
+		},
+		onPressAddReceiver:function(){
+			var oModel = this.getView().getModel("receiverdata");
+			var aData = oModel().getData();
+			aData.push({
+			    
+			});
 		}
 
 	});

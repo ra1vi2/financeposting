@@ -19,6 +19,31 @@
 							<m:Input id="_IDGenInput3" name="IcnJon" value="{OriginalSDNFilter>/IcnJon}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
+					<fb:FilterGroupItem groupName="__$INTERNAL$" name="KeyOp" label="KeyOp" visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="KeyOp" value="{OriginalSDNFilter>/KeyOp}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="_IDGenFsdilterGroupItem3" groupName="__$INTERNAL$" name="Shop" label="Shop" visibleInFilterBar="true">
+						<fb:control>
+							<m:Input name="Shop" value="{OriginalSDNFilter>/Shop}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="_IDGesdnFilterGroupItem3" groupName="__$INTERNAL$" name="Ts" label="Ts" visibleInFilterBar="true">
+						<fb:control>
+							<m:Input id="_IDGenInfput3" name="Ts" value="{OriginalSDNFilter>/Ts}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="_IDGenasFilterGroupItem3" groupName="__$INTERNAL$" name="Tsd" label="Tsd" visibleInFilterBar="true">
+						<fb:control>
+							<m:Input id="_IDGenInfdput3" name="Tsd" value="{OriginalSDNFilter>/Tsd}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
+					<fb:FilterGroupItem id="_IDGenasFiltcerGroupItem3" groupName="__$INTERNAL$" name="Posnr" label="WBS element" visibleInFilterBar="true">
+						<fb:control>
+							<m:Input id="_IDGenIncfdput3" name="Posnr" value="{OriginalSDNFilter>/Posnr}"/>
+						</fb:control>
+					</fb:FilterGroupItem>
 				</fb:filterGroupItems>
 			</fb:FilterBar>
 		</filterBar>
