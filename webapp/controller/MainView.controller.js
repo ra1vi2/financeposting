@@ -11,9 +11,9 @@ sap.ui.define([
 		onInit: function() {
 			this.getView().setModel(new JSONModel({}), "OriginalSDNFilter");
 			this.stdDocTable = this.byId("idOriginalStdDocTable");
-			this.getView().setModel(new JSONModel({
+			this.getView().setModel(new JSONModel([{
 				OrgSdn: ""
-			}), "orgsdnmodel");
+			}]), "orgsdnmodel");
 			this.getView().setModel(new JSONModel({}), "MainData");
 			this.getView().setModel(new JSONModel([]), "receiverdata");
 			this.getView().setModel(new JSONModel({
