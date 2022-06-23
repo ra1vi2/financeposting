@@ -15,7 +15,12 @@ sap.ui.define([
 				OrgSdn: ""
 			}), "orgsdnmodel");
 			this.getView().setModel(new JSONModel({}), "MainData");
-			this.getView().setModel(new JSONModel({}), "receiverdata");
+			this.getView().setModel(new JSONModel([]), "receiverdata");
+			this.getView().setModel(new JSONModel({
+				totalQty: 0,
+				totalAmount: 0
+			}), "totalData");
+
 		},
 		onOriginalSDNVH: function(oEvent) {
 			var globalThis = this;
@@ -37,6 +42,12 @@ sap.ui.define([
 			var aTokens = oEvent.getParameter("tokens");
 			BO.onValueHelpOkPress(aTokens, this.currentOriginalSDN, this);
 			this.selectedOrgSDN = aTokens[0].getKey();
+
+			var oModel = this.getView().getModel("orgsdnmodel");
+			var aData = oModel.getData();
+			aData[0].OrgSdn = this.selectedOrgSDN;
+			oModel.setData(aData);
+
 			var selectedObject = oEvent.getSource()._oSelectedItems.items;
 			this.getView().setModel(new JSONModel(selectedObject), "selectedOrgSDN");
 		},
@@ -49,6 +60,7 @@ sap.ui.define([
 		onPressCalculate: function() {
 			var oModel = this.getView().getModel();
 			var aFilter = [];
+			aFilter.push(new Filter("OrgSdn", FilterOperator.EQ, this.selectedOrgSDN));
 			oModel.read("/CalculateSet", {
 				filters: aFilter,
 				success: function(oResponse) {
@@ -64,10 +76,13 @@ sap.ui.define([
 		},
 		onPressAddReceiver: function() {
 			var oModel = this.getView().getModel("receiverdata");
-			var aData = oModel().getData();
+			var aData = oModel.getData() || [];
 			aData.push({
-
+				RecFcnJon: "",
+				RecQty: "0",
+				SendAmt: "0" //please provide in odata
 			});
+			oModel.setData(aData);
 		},
 		onSearchOriginalSDN: function() {
 			this._filterVHTable("OriginalSDNFilter", "/OrginialSDNVHSet");
@@ -93,6 +108,43 @@ sap.ui.define([
 					}.bind(this)
 				);
 			}
+		},
+		onChangeAmount: function() {
+			this.updateQtyAmount();
+		},
+		onChangeQty: function() {
+			this.updateQtyAmount();
+		},
+		updateQtyAmount: function() {
+			var oModel = this.getView().getModel("receiverdata");
+			var aData = oModel.getData();
+			var totalQty = 0,
+				totalAmount = 0;
+			aData.forEach(function(item) {
+				totalQty = parseFloat(totalQty) + parseFloat(item.SendQty);
+				totalAmount = parseFloat(totalAmount) + parseFloat(item.SendAmt);
+			});
+			this.getView().getModel("totalData").setData({
+				totalQty: totalQty,
+				totalAmount: totalAmount
+			});
+		},
+		onPressPostDocument: function() {
+			var oModel = this.getView().getModel("receiverdata");
+			var aData = oModel.getData();
+
+			var totalData = this.getView().getModel("totalData").getData();
+
+			//if(parseFloat(totalData.totalQty) > )
+
+			oModel.create("/PostDocumentSet", aData, {
+				success: function(oResponse) {
+					sap.m.MessageBox.success("Data has been Posted");
+				},
+				error: function(oError) {
+					sap.m.MessageBox.error();
+				}
+			}.bind(this));
 		}
 
 	});

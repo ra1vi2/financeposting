@@ -45,16 +45,25 @@
 		<items>
 			<ColumnListItem vAlign="Middle">
 				<cells>
-					<Input value="{selectedOrgSDN>FcnJon}"/>
-					<Text text="{selectedOrgSDN>IcnJon}"/>
-					<Text text="{selectedOrgSDN>KeyOp}"/>
-					<Text text="{selectedOrgSDN>Shop}"/>
-					<Text text="{selectedOrgSDN>Ts}/{selectedOrgSDN>Tsd}"/>
-					<Text text="{selectedOrgSDN>Posnr}"/>
-					<Input/>
-					<Input/>
+					<Input value="{receiverdata>FcnJon}"/>
+					<Text text="{receiverdata>IcnJon}"/>
+					<Text text="{receiverdata>KeyOp}"/>
+					<Text text="{receiverdata>Shop}"/>
+					<Text text="{receiverdata>Ts}/{selectedOrgSDN>Tsd}"/>
+					<Text text="{receiverdata>Posnr}"/>
+					<Text text="{receiverdata>SDN}"/>
+					<Input value="{receiverdata>SendQty}" submit="onChangeQty" change="onChangeQty"/>
+					<Input value="{receiverdata>SendAmt}" submit="onChangeAmount" change="onChangeQty"/>
 				</cells>
 			</ColumnListItem>
 		</items>
 	</Table>
+	<Toolbar>
+		<ToolbarSpacer/>
+		<HBox>
+			<Text text="Total" class="sapUiLargeMarginEnd"/>
+			<Text text="{totalData>/totalQty}" class="sapUiLargeMarginBegin sapUiLargeMarginEnd"/>
+			<Text text="{totalData>/totalAmount}" class="sapUiLargeMarginBegin sapUiLargeMarginEnd"/>
+		</HBox>
+	</Toolbar>
 </core:FragmentDefinition>

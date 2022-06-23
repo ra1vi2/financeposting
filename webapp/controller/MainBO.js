@@ -34,10 +34,10 @@ sap.ui.define(
 								oTable.setModel(oDataModel);
 								oTable.setModel(ColModel, "columns");
 
-								oTable.bindAggregation("rows", {
+							/*	oTable.bindAggregation("rows", {
 									path: sEntity,
 									filters: aFilter
-								});
+								});*/
 
 								if (oTable.bindItems) {
 									oTable.bindAggregation("items", sEntity, function() {
@@ -67,6 +67,7 @@ sap.ui.define(
 				if (aTokens.length > 0) {
 					oControl.setSelectedKey(aTokens[0].getKey());
 					oControl.setValue(aTokens[0].getKey());
+				    
 				}
 				globalThis._oValueHelpDialog.close();
 			},
@@ -90,6 +91,10 @@ sap.ui.define(
 						);
 					}
 				});
+				return aFilter;
+			},
+			_updateFilterArray(aFilter, sProperty, sValue) {
+				aFilter.push(new Filter(sProperty, FilterOperator.EQ, sValue));
 				return aFilter;
 			},
 
