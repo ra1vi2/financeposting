@@ -60,16 +60,17 @@ sap.ui.define([
 		onPressCalculate: function() {
 			var oModel = this.getView().getModel();
 			var aFilter = [];
+			var that = this;
 			aFilter.push(new Filter("OrgSdn", FilterOperator.EQ, this.selectedOrgSDN));
 			oModel.read("/CalculateSet", {
 				filters: aFilter,
 				success: function(oResponse) {
-					this.getView().getModel("orgsdnmodel").setData(oResponse);
+					that.getView().getModel("orgsdnmodel").setData(oResponse);
 				},
 				error: function(oError) {
 					sap.m.MessageBox.error();
 				}
-			}.bind(this));
+			});
 		},
 		onSetDocumentDate: function(oEvent) {
 			this.byId("idPostingDate").setMinDate(oEvent.getSource().getDateValue());
