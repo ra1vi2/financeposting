@@ -76,8 +76,8 @@ sap.ui.define([
 					that.getView().getModel("orgsdnmodel").setData(oResponse.results);
 					var oModelRec = that.getView().getModel("selectedOrgSDN");
 					var oData = oModelRec.getData();
-					oData.SendAmt = oResponse.results[0].SendAmt;
-					oData.SendQty = oResponse.results[0].SendQty;
+					oData[0].SendAmt = oResponse.results[0].SendAmt;
+					oData[0].SendQty = oResponse.results[0].SendQty;
 					oModelRec.setData(oData);
 				},
 				error: function(oError) {
