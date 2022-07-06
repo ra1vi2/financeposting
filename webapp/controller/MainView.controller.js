@@ -70,7 +70,7 @@ sap.ui.define([
 			oModel.read("/CalculateSet", {
 				filters: aFilter,
 				success: function(oResponse) {
-					that.getView().getModel("orgsdnmodel").setData(oResponse.results[0]);
+					that.getView().getModel("orgsdnmodel").setData(oResponse.results);
 					var oModelRec = that.getView().getModel("selectedOrgSDN");
 					var oData = oModelRec.getData();
 					oData.SendAmt = oResponse.results[0].SendAmt;
