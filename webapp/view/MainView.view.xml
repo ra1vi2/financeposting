@@ -6,11 +6,11 @@
 				<content>
 					<HBox>
 						<Label text="Document Date" class="sapUiSmallMarginTop sapUiTinyMarginBegin sapUiSmallMarginEnd"/>
-						<DatePicker change="onSetDocumentDate" value="{path : 'MainData>/InvDate' , type : 'sap.ui.model.type.Date'}"/>
+						<DatePicker change="onSetDocumentDate" value="{path : 'MainData>/DocDate' , type : 'sap.ui.model.type.Date'}"/>
 						<Label text="Posting Date" class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
-						<DatePicker id="idPostingDate"/>
+						<DatePicker id="idPostingDate" value="{path : 'MainData>/PostingDate' , type : 'sap.ui.model.type.Date'}"/>
 						<Label text="Send To SABRS" class="sapUiSmallMarginTop sapUiSmallMarginBegin "/>
-						<CheckBox/>
+						<CheckBox  selected="{MainData>/SendToSABRAS}"/>
 					</HBox>
 					<core:Fragment fragmentName="comfinanceposting.fragments.StdDocTable" type="XML"/>
 					<core:Fragment fragmentName="comfinanceposting.fragments.SenderInfo" type="XML"/>

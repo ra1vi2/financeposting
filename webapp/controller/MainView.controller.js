@@ -14,7 +14,11 @@ sap.ui.define([
 			this.getView().setModel(new JSONModel([{
 				OrgSdn: ""
 			}]), "orgsdnmodel");
-			this.getView().setModel(new JSONModel({}), "MainData");
+			this.getView().setModel(new JSONModel({
+				DocDate : new Date(),
+				PostingDate : new Date(),
+				SendToSABRAS : true
+			}), "MainData");
 			this.getView().setModel(new JSONModel([]), "receiverdata");
 			this.getView().setModel(new JSONModel({
 				totalQty: 0,
@@ -67,7 +71,7 @@ sap.ui.define([
 				filters: aFilter,
 				success: function(oResponse) {
 					that.getView().getModel("orgsdnmodel").setData(oResponse.results[0]);
-					var oModelRec = this.getView().getModel("selectedOrgSDN");
+					var oModelRec = that.getView().getModel("selectedOrgSDN");
 					var oData = oModelRec.getData();
 					oData.SendAmt = oResponse.results[0].SendAmt;
 					oData.SendQty = oResponse.results[0].SendQty;
