@@ -54,7 +54,10 @@ sap.ui.define([
 			oModel.setData(aData);
 
 			var selectedObject = oEvent.getSource()._oSelectedItems.items;
-			this.getView().setModel(new JSONModel(selectedObject), "selectedOrgSDN");
+			var data = selectedObject["OrginialSDNVHSet('" + this.selectedOrgSDN + "')"];
+			var aSelectedData = [];
+			aSelectedData.push(data);
+			this.getView().setModel(new JSONModel(aSelectedData), "selectedOrgSDN");
 		},
 		onValueHelpCancelPress: function() {
 			BO.onValueHelpCancelPress(this);
@@ -70,7 +73,7 @@ sap.ui.define([
 			oModel.read("/CalculateSet", {
 				filters: aFilter,
 				success: function(oResponse) {
-					that.getView().getModel("orgsdnmodel").setData(oResponse.results);
+					that.getView().getModel("orgsdnmodel").setData(oResponse.results[0]);
 					var oModelRec = that.getView().getModel("selectedOrgSDN");
 					var oData = oModelRec.getData();
 					oData.SendAmt = oResponse.results[0].SendAmt;
