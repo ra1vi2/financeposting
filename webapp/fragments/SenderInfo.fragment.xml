@@ -40,6 +40,8 @@
 					<Text text="{selectedOrgSDN>Shop}"/>
 					<Text text="{selectedOrgSDN>Ts}/{selectedOrgSDN>Tsd}"/>
 					<Text text="{selectedOrgSDN>Posnr}"/>
+					<Text text="{selectedOrgSDN>SendQty}"/>
+					<Text text="{selectedOrgSDN>SendAmt}"/>
 				</cells>
 			</ColumnListItem>
 		</items>

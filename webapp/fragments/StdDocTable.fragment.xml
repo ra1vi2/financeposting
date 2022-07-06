@@ -41,11 +41,11 @@
 				<cells>
 					<Input showValueHelp="true" valueHelpRequest="onOriginalSDNVH" value="{orgsdnmodel>OrgSdn}"/>
 					<Text text="{orgsdnmodel>TotLiq}"/>
-					<Text text="{orgsdnmodel>PrevAaloc}"/>
+					<Text text="{orgsdnmodel>PrevAlloc}"/>
 					<Text text="{orgsdnmodel>AvailBal}"/>
-					<Text text="{orgsdnmodel>LocAmt}"/>
+					<Text text="{orgsdnmodel>AllocAmt}"/>
 					<Text text="{orgsdnmodel>RemainBal}"/>
-					<Text text="{orgsdnmodel>SendQty}"/>
+					<Text text="{orgsdnmodel>AvailQty}"/>
 				</cells>
 			</ColumnListItem>
 		</items>

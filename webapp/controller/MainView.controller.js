@@ -65,7 +65,12 @@ sap.ui.define([
 			oModel.read("/CalculateSet", {
 				filters: aFilter,
 				success: function(oResponse) {
-					that.getView().getModel("orgsdnmodel").setData(oResponse);
+					that.getView().getModel("orgsdnmodel").setData(oResponse.results[0]);
+					var oModelRec = this.getView().getModel("selectedOrgSDN");
+					var oData = oModelRec.getData();
+					oData.SendAmt = oResponse.results[0].SendAmt;
+					oData.SendQty = oResponse.results[0].SendQty;
+					oModelRec.setData(oData);
 				},
 				error: function(oError) {
 					sap.m.MessageBox.error();
