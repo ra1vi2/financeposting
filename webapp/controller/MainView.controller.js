@@ -23,6 +23,7 @@ sap.ui.define([
 
 		},
 		onOriginalSDNVH: function(oEvent) {
+			this.getView().getModel("OriginalSDNFilter").setData({});
 			var globalThis = this;
 			var aFilter = [];
 			var oData = this.getView().getModel("OriginalSDNFilter").getData();
