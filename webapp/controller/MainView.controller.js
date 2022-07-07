@@ -10,14 +10,15 @@ sap.ui.define([
 	return Controller.extend("comfinanceposting.controller.MainView", {
 		onInit: function() {
 			this.getView().setModel(new JSONModel({}), "OriginalSDNFilter");
+			this.getView().setModel(new JSONModel({}), "FcnJonVHFilter");
 			this.stdDocTable = this.byId("idOriginalStdDocTable");
 			this.getView().setModel(new JSONModel([{
 				OrgSdn: ""
 			}]), "orgsdnmodel");
 			this.getView().setModel(new JSONModel({
-				DocDate : new Date(),
-				PostingDate : new Date(),
-				SendToSABRAS : true
+				DocDate: new Date(),
+				PostingDate: new Date(),
+				SendToSABRAS: true
 			}), "MainData");
 			this.getView().setModel(new JSONModel([]), "receiverdata");
 			this.getView().setModel(new JSONModel({
@@ -65,6 +66,39 @@ sap.ui.define([
 		onValueHelpAfterClose: function() {
 			BO.onValueHelpAfterClose(this);
 		},
+		onFCNJonVH: function(oEvent) {
+			this.getView().getModel("FcnJonVHFilter").setData({});
+			var globalThis = this;
+			var aFilter = [];
+			var oData = this.getView().getModel("FcnJonVHFilter").getData();
+			aFilter.push(new Filter("OrgSdn", FilterOperator.EQ, oData.OrgSdn));
+			this.currentFcnJon = oEvent.getSource();
+			BO.onInputVH(
+				oEvent.getSource(),
+				BO.createColumnModel("FcnJonVH"),
+				this.getView().getModel(),
+				"comfinanceposting.fragments.FcnJonVH",
+				globalThis,
+				"/FCNJONVHSet",
+				aFilter
+			);
+		},
+		onFcnVHOkPress: function(oEvent) {
+			var aTokens = oEvent.getParameter("tokens");
+			BO.onValueHelpOkPress(aTokens, this.currentOriginalSDN, this);
+			this.selectedOrgSDN = aTokens[0].getKey();
+
+			var oModel = this.getView().getModel("orgsdnmodel");
+			var aData = oModel.getData();
+			aData[0].OrgSdn = this.selectedOrgSDN;
+			oModel.setData(aData);
+
+			var selectedObject = oEvent.getSource()._oSelectedItems.items;
+			var data = selectedObject["OrginialSDNVHSet('" + this.selectedOrgSDN + "')"];
+			var aSelectedData = [];
+			aSelectedData.push(data);
+			this.getView().setModel(new JSONModel(aSelectedData), "selectedOrgSDN");
+		},
 		onPressCalculate: function() {
 			var oModel = this.getView().getModel();
 			var aFilter = [];
@@ -100,6 +134,9 @@ sap.ui.define([
 		},
 		onSearchOriginalSDN: function() {
 			this._filterVHTable("OriginalSDNFilter", "/OrginialSDNVHSet");
+		},
+		onSearchFcnJon:function(){
+			this._filterVHTable("FcnJonVHFilter", "/FCNJONVHSet");
 		},
 		_filterVHTable: function(sFilterModel, sEntitySet) {
 			var aFilter = [];
@@ -144,14 +181,37 @@ sap.ui.define([
 			});
 		},
 		onPressPostDocument: function() {
-			var oModel = this.getView().getModel("receiverdata");
-			var aData = oModel.getData();
+			var oModel = this.getView().getModel();
+			var oRecModel = this.getView().getModel("receiverdata");
+			var aRecData = oRecModel.getData();
 
-			var totalData = this.getView().getModel("totalData").getData();
+			var oMainModel = this.getView().getModel("MainData");
+			var aMainData = oMainModel.getData();
+
+			var oSenderModel = this.getView().getModel("selectedOrgSDN");
+			var aSenderData = oSenderModel.getData();
+
+			var oData = {
+				Bldat: aMainData.DocDate,
+				FcnJon: aSenderData[0].FcnJon,
+				Budat: aMainData.PostingDate,
+				IcnJon: aSenderData[0].IcnJon,
+				SendToSabrs: aMainData.SendToSABRAS,
+				KeyOp: aSenderData[0].KeyOp,
+				OrgSdn: this.selectedOrgSDN,
+				Shop: aSenderData[0].Shop,
+				Ts: aSenderData[0].Ts,
+				Tsd: aSenderData[0].Tsd,
+				Posnr: aSenderData[0].Posnr,
+				SendAmt: aSenderData[0].SendAmt,
+				OrgSDN: aRecData
+			};
+
+			//var totalData = this.getView().getModel("totalData").getData();
 
 			//if(parseFloat(totalData.totalQty) > )
 
-			oModel.create("/PostDocumentSet", aData, {
+			oModel.create("/PostHeaderSet", oData, {
 				success: function(oResponse) {
 					sap.m.MessageBox.success("Data has been Posted");
 				},

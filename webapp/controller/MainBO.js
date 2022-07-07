@@ -128,6 +128,32 @@ sap.ui.define(
 						}]
 					});
 				}
+				if (sRequestedVH === "FcnJonVH") {
+					return new JSONModel({
+						cols: [ {
+							label: "FcnJon",
+							template: "FcnJon"
+						}, {
+							label: "IcnJon",
+							template: "IcnJon"
+						}, {
+							label: "KeyOp",
+							template: "KeyOp"
+						}, {
+							label: "Shop",
+							template: "Shop"
+						}, {
+							label: "Ts",
+							template: "Ts"
+						}, {
+							label: "Tsd",
+							template: "Tsd"
+						}, {
+							label: "WBS Element",
+							template: "Posnr"
+						}]
+					});
+				}
 			}
 		};
 

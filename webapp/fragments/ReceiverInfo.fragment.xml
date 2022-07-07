@@ -45,7 +45,7 @@
 		<items>
 			<ColumnListItem vAlign="Middle">
 				<cells>
-					<Input value="{receiverdata>FcnJon}"/>
+					<Input value="{receiverdata>FcnJon}" showValueHelp="true" valueHelpRequest="onFCNJonVH"/>
 					<Text text="{receiverdata>IcnJon}"/>
 					<Text text="{receiverdata>KeyOp}"/>
 					<Text text="{receiverdata>Shop}"/>
