@@ -220,7 +220,7 @@ sap.ui.define([
 				error: function(oError) {
 					sap.m.MessageBox.error();
 				}
-			}.bind(this));
+			});
 		}
 
 	});
