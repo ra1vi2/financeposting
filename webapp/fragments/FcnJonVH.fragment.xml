@@ -4,39 +4,39 @@
 		<filterBar>
 			<fb:FilterBar  advancedMode="true" search=".onSearchFcnJon">
 				<fb:filterGroupItems>
-					<fb:FilterGroupItem  groupName="__$INTERNAL$" name="FcnJon" label="FcnJon" visibleInFilterBar="true">
+					<fb:FilterGroupItem  groupName="__$INTERNAL$" name="RecFcnJon" label="FcnJon" visibleInFilterBar="true">
 						<fb:control>
-							<m:Input  name="FcnJon" value="{FcnJonVHFilter>/FcnJon}"/>
+							<m:Input  name="FcnJon" value="{FcnJonVHFilter>/RecFcnJon}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
-					<fb:FilterGroupItem groupName="__$INTERNAL$" name="IcnJon" label="IcnJon" visibleInFilterBar="true">
+					<fb:FilterGroupItem groupName="__$INTERNAL$" name="RecIcnJon" label="IcnJon" visibleInFilterBar="true">
 						<fb:control>
-							<m:Input  name="IcnJon" value="{FcnJonVHFilter>/IcnJon}"/>
+							<m:Input  name="IcnJon" value="{FcnJonVHFilter>/RecIcnJon}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
-					<fb:FilterGroupItem groupName="__$INTERNAL$" name="KeyOp" label="KeyOp" visibleInFilterBar="true">
+					<fb:FilterGroupItem groupName="__$INTERNAL$" name="RecKeyOp" label="KeyOp" visibleInFilterBar="true">
 						<fb:control>
-							<m:Input name="KeyOp" value="{FcnJonVHFilter>/KeyOp}"/>
+							<m:Input name="KeyOp" value="{FcnJonVHFilter>/RecKeyOp}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
-					<fb:FilterGroupItem  groupName="__$INTERNAL$" name="Shop" label="Shop" visibleInFilterBar="true">
+					<fb:FilterGroupItem  groupName="__$INTERNAL$" name="RecShop" label="Shop" visibleInFilterBar="true">
 						<fb:control>
-							<m:Input name="Shop" value="{FcnJonVHFilter>/Shop}"/>
+							<m:Input name="Shop" value="{FcnJonVHFilter>/RecShop}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
-					<fb:FilterGroupItem  groupName="__$INTERNAL$" name="Ts" label="Ts" visibleInFilterBar="true">
+					<fb:FilterGroupItem  groupName="__$INTERNAL$" name="RecTs" label="Ts" visibleInFilterBar="true">
 						<fb:control>
-							<m:Input  name="Ts" value="{FcnJonVHFilter>/Ts}"/>
+							<m:Input  name="Ts" value="{FcnJonVHFilter>/RecTs}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
-					<fb:FilterGroupItem groupName="__$INTERNAL$" name="Tsd" label="Tsd" visibleInFilterBar="true">
+					<fb:FilterGroupItem groupName="__$INTERNAL$" name="RecTsd" label="Tsd" visibleInFilterBar="true">
 						<fb:control>
-							<m:Input  name="Tsd" value="{FcnJonVHFilter>/Tsd}"/>
+							<m:Input  name="Tsd" value="{FcnJonVHFilter>/RecTsd}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
-					<fb:FilterGroupItem  groupName="__$INTERNAL$" name="Posnr" label="WBS element" visibleInFilterBar="true">
+					<fb:FilterGroupItem  groupName="__$INTERNAL$" name="RecPosnr" label="WBS element" visibleInFilterBar="true">
 						<fb:control>
-							<m:Input  name="Posnr" value="{FcnJonVHFilter>/Posnr}"/>
+							<m:Input  name="Posnr" value="{FcnJonVHFilter>/RecPosnr}"/>
 						</fb:control>
 					</fb:FilterGroupItem>
 				</fb:filterGroupItems>

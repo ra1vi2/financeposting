@@ -45,13 +45,13 @@
 		<items>
 			<ColumnListItem vAlign="Middle">
 				<cells>
-					<Input value="{receiverdata>FcnJon}" showValueHelp="true" valueHelpRequest="onFCNJonVH"/>
-					<Text text="{receiverdata>IcnJon}"/>
-					<Text text="{receiverdata>KeyOp}"/>
-					<Text text="{receiverdata>Shop}"/>
-					<Text text="{receiverdata>Ts}/{selectedOrgSDN>Tsd}"/>
-					<Text text="{receiverdata>Posnr}"/>
-					<Text text="{receiverdata>SDN}"/>
+					<Input value="{receiverdata>RecFcnJon}" showValueHelp="true" valueHelpRequest="onFCNJonVH"/>
+					<Text text="{receiverdata>RecIcnJon}"/>
+					<Text text="{receiverdata>RecKeyOp}"/>
+					<Text text="{receiverdata>RecShop}"/>
+					<Text text="{receiverdata>RecTs}/{selectedOrgSDN>RecTsd}"/>
+					<Text text="{receiverdata>RecPosnr}"/>
+					<Text text="{receiverdata>RecSdn}"/>
 					<Input value="{receiverdata>SendQty}" submit="onChangeQty" change="onChangeQty"/>
 					<Input value="{receiverdata>SendAmt}" submit="onChangeAmount" change="onChangeQty"/>
 				</cells>

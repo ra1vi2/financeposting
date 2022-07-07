@@ -85,19 +85,21 @@ sap.ui.define([
 		},
 		onFcnVHOkPress: function(oEvent) {
 			var aTokens = oEvent.getParameter("tokens");
-			BO.onValueHelpOkPress(aTokens, this.currentOriginalSDN, this);
-			this.selectedOrgSDN = aTokens[0].getKey();
+			BO.onValueHelpOkPress(aTokens, this.currentFcnJon, this);
+			this.selectedFcnJon = aTokens[0].getKey();
 
-			var oModel = this.getView().getModel("orgsdnmodel");
+			var oModel = this.getView().getModel("receiverdata");
 			var aData = oModel.getData();
-			aData[0].OrgSdn = this.selectedOrgSDN;
-			oModel.setData(aData);
+			aData[aData.length-1].FcnJon = this.selectedFcnJon;
+			
 
 			var selectedObject = oEvent.getSource()._oSelectedItems.items;
-			var data = selectedObject["OrginialSDNVHSet('" + this.selectedOrgSDN + "')"];
-			var aSelectedData = [];
-			aSelectedData.push(data);
-			this.getView().setModel(new JSONModel(aSelectedData), "selectedOrgSDN");
+			var data = selectedObject["FCNJONVHSet('" + this.selectedFcnJon + "')"];
+			aData.push(data);
+			oModel.setData(aData);
+		//	var aSelectedData = [];
+		//	aSelectedData.push(data);
+		//	this.getView().setModel(new JSONModel(aSelectedData), "selectedOrgSDN");
 		},
 		onPressCalculate: function() {
 			var oModel = this.getView().getModel();
