@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.ui.comp.valuehelpdialog" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:m="sap.m">
-	<ValueHelpDialog id="idFcnJonVH" title="OriginalSDN" ok=".onFcnVHOkPress" cancel=".onValueHelpCancelPress"
+	<ValueHelpDialog id="idFcnJonVH" title="FcnJon" ok=".onFcnVHOkPress" cancel=".onValueHelpCancelPress"
 		afterClose=".onValueHelpAfterClose" supportMultiselect="false" key="RecFcnJon" >
 		<filterBar>
 			<fb:FilterBar  advancedMode="true" search=".onSearchFcnJon">

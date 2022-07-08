@@ -131,26 +131,26 @@ sap.ui.define(
 				if (sRequestedVH === "FcnJonVH") {
 					return new JSONModel({
 						cols: [ {
-							label: "FcnJon",
-							template: "FcnJon"
+							label: "RecFcnJon",
+							template: "RecFcnJon"
 						}, {
-							label: "IcnJon",
-							template: "IcnJon"
+							label: "RecIcnJon",
+							template: "RecIcnJon"
 						}, {
-							label: "KeyOp",
-							template: "KeyOp"
+							label: "RecKeyOp",
+							template: "RecKeyOp"
 						}, {
-							label: "Shop",
-							template: "Shop"
+							label: "RecShop",
+							template: "RecShop"
 						}, {
-							label: "Ts",
-							template: "Ts"
+							label: "RecTs",
+							template: "RecTs"
 						}, {
-							label: "Tsd",
-							template: "Tsd"
+							label: "RecTsd",
+							template: "RecTsd"
 						}, {
 							label: "WBS Element",
-							template: "Posnr"
+							template: "RecPosnr"
 						}]
 					});
 				}
