@@ -41,6 +41,9 @@
 			<Column>
 				<Text text="Amount"/>
 			</Column>
+			<Column visible="false">
+				<Text text=""/>
+			</Column>
 		</columns>
 		<items>
 			<ColumnListItem vAlign="Middle">
@@ -49,11 +52,12 @@
 					<Text text="{receiverdata>RecIcnJon}"/>
 					<Text text="{receiverdata>RecKeyOp}"/>
 					<Text text="{receiverdata>RecShop}"/>
-					<Text text="{receiverdata>RecTs}/{selectedOrgSDN>RecTsd}"/>
+					<Text text="{receiverdata>RecTs}/{receiverdata>RecTsd}"/>
 					<Text text="{receiverdata>RecPosnr}"/>
 					<Text text="{receiverdata>RecSdn}"/>
 					<Input value="{receiverdata>SendQty}" submit="onChangeQty" change="onChangeQty"/>
 					<Input value="{receiverdata>SendAmt}" submit="onChangeAmount" change="onChangeQty"/>
+					<Text text="{receiverdata>OrgSdn}"/>
 				</cells>
 			</ColumnListItem>
 		</items>

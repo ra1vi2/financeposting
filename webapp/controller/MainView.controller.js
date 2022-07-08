@@ -69,6 +69,12 @@ sap.ui.define([
 		onFCNJonVH: function(oEvent) {
 			this.getView().getModel("FcnJonVHFilter").setData({});
 			var globalThis = this;
+			
+			//get current index
+			var sPath = oEvent.getSource().getParent().getBindingContext("receiverdata").getPath();
+			this.currentRecFcnJonindex = sPath.charAt(sPath.length - 1);
+			
+			
 			var aFilter = [];
 			var oData = this.getView().getModel("FcnJonVHFilter").getData();
 			aFilter.push(new Filter("OrgSdn", FilterOperator.EQ, oData.OrgSdn));
@@ -90,12 +96,11 @@ sap.ui.define([
 
 			var oModel = this.getView().getModel("receiverdata");
 			var aData = oModel.getData();
-			aData[aData.length-1].FcnJon = this.selectedFcnJon;
+			aData[this.currentRecFcnJonindex].FcnJon = this.selectedFcnJon;
 			
-
 			var selectedObject = oEvent.getSource()._oSelectedItems.items;
 			var data = selectedObject["FCNJONVHSet('" + this.selectedFcnJon + "')"];
-			aData.push(data);
+			aData[this.currentRecFcnJonindex] = data;
 			oModel.setData(aData);
 		//	var aSelectedData = [];
 		//	aSelectedData.push(data);
@@ -130,7 +135,8 @@ sap.ui.define([
 			aData.push({
 				RecFcnJon: "",
 				RecQty: "0",
-				SendAmt: "0" //please provide in odata
+				SendAmt: "0", //please provide in odata
+				OrgSdn : this.selectedOrgSDN
 			});
 			oModel.setData(aData);
 		},
@@ -206,7 +212,7 @@ sap.ui.define([
 				Tsd: aSenderData[0].Tsd,
 				Posnr: aSenderData[0].Posnr,
 				SendAmt: aSenderData[0].SendAmt,
-				OrgSDN: aRecData
+				KeySDN: aRecData
 			};
 
 			//var totalData = this.getView().getModel("totalData").getData();
