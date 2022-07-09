@@ -205,11 +205,14 @@ sap.ui.define([
 
 			var oSenderModel = this.getView().getModel("selectedOrgSDN");
 			var aSenderData = oSenderModel.getData();
-	
+	        var that = this;
 			var recData = [];
 			aRecData.forEach(function(item){
 				item.RecQty = parseFloat(item.RecQty);
 				item.RecAmt = parseFloat(item.RecAmt);
+				item.OrgSdn = that.selectedOrgSDN;
+				delete item["Bldat"];
+				delete item["Posnr"];
 				recData.push(item);
 			});
 
