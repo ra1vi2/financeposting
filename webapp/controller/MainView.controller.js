@@ -67,7 +67,12 @@ sap.ui.define([
 			BO.onValueHelpAfterClose(this);
 		},
 		onFCNJonVH: function(oEvent) {
-			this.getView().getModel("FcnJonVHFilter").setData({});
+			var bldat = this.getView().getModel("MainData").getData().DocDate;
+			var posnr = this.getView().getModel("selectedOrgSDN").getData()[0].Posnr;
+			this.getView().getModel("FcnJonVHFilter").setData({
+				Bldat : bldat,
+				Posnr : posnr
+			});
 			var globalThis = this;
 			
 			//get current index
@@ -76,8 +81,9 @@ sap.ui.define([
 			
 			
 			var aFilter = [];
-			var oData = this.getView().getModel("FcnJonVHFilter").getData();
-			aFilter.push(new Filter("OrgSdn", FilterOperator.EQ, oData.OrgSdn));
+			//var oData = this.getView().getModel("FcnJonVHFilter").getData();
+			//aFilter.push(new Filter("Bldat", FilterOperator.EQ, bldat));
+			//aFilter.push(new Filter("Posnr", FilterOperator.EQ, posnr));
 			this.currentFcnJon = oEvent.getSource();
 			BO.onInputVH(
 				oEvent.getSource(),
