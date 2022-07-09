@@ -42,7 +42,7 @@
 				<Text text="Amount"/>
 			</Column>
 			<Column visible="false">
-				<Text text=""/>
+				<Text text="OrgSDN"/>
 			</Column>
 		</columns>
 		<items>
@@ -55,8 +55,8 @@
 					<Text text="{receiverdata>RecTs}/{receiverdata>RecTsd}"/>
 					<Text text="{receiverdata>RecPosnr}"/>
 					<Text text="{receiverdata>RecSdn}"/>
-					<Input value="{receiverdata>SendQty}" submit="onChangeQty" change="onChangeQty"/>
-					<Input value="{receiverdata>SendAmt}" submit="onChangeAmount" change="onChangeQty"/>
+					<Input value="{receiverdata>RecQty}" submit="onChangeQty" change="onChangeQty" type="Number"/>
+					<Input value="{receiverdata>RecAmt}" submit="onChangeAmount" change="onChangeQty" type="Number"/>
 					<Text text="{receiverdata>OrgSdn}"/>
 				</cells>
 			</ColumnListItem>

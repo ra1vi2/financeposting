@@ -151,6 +151,9 @@ sap.ui.define(
 						}, {
 							label: "WBS Element",
 							template: "RecPosnr"
+						}, {
+							label: "SDN",
+							template: "RecSdn"
 						}]
 					});
 				}

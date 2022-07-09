@@ -102,7 +102,7 @@ sap.ui.define([
 
 			var oModel = this.getView().getModel("receiverdata");
 			var aData = oModel.getData();
-			aData[this.currentRecFcnJonindex].FcnJon = this.selectedFcnJon;
+			//aData[this.currentRecFcnJonindex].FcnJon = this.selectedFcnJon;
 			
 			var selectedObject = oEvent.getSource()._oSelectedItems.items;
 			var data = selectedObject["FCNJONVHSet('" + this.selectedFcnJon + "')"];
@@ -138,11 +138,12 @@ sap.ui.define([
 		onPressAddReceiver: function() {
 			var oModel = this.getView().getModel("receiverdata");
 			var aData = oModel.getData() || [];
+			var that = this;
 			aData.push({
 				RecFcnJon: "",
-				RecQty: "0",
-				SendAmt: "0", //please provide in odata
-				OrgSdn : this.selectedOrgSDN
+				RecQty: 0,
+				RecAmt: 0,
+				OrgSdn : that.selectedOrgSDN
 			});
 			oModel.setData(aData);
 		},
@@ -186,8 +187,8 @@ sap.ui.define([
 			var totalQty = 0,
 				totalAmount = 0;
 			aData.forEach(function(item) {
-				totalQty = parseFloat(totalQty) + parseFloat(item.SendQty);
-				totalAmount = parseFloat(totalAmount) + parseFloat(item.SendAmt);
+				totalQty = parseFloat(totalQty) + parseFloat(item.RecQty);
+				totalAmount = parseFloat(totalAmount) + parseFloat(item.RecAmt);
 			});
 			this.getView().getModel("totalData").setData({
 				totalQty: totalQty,
@@ -204,6 +205,13 @@ sap.ui.define([
 
 			var oSenderModel = this.getView().getModel("selectedOrgSDN");
 			var aSenderData = oSenderModel.getData();
+	
+			var recData = [];
+			aRecData.forEach(function(item){
+				item.RecQty = parseFloat(item.RecQty);
+				item.RecAmt = parseFloat(item.RecAmt);
+				recData.push(item);
+			});
 
 			var oData = {
 				Bldat: aMainData.DocDate,
@@ -217,8 +225,8 @@ sap.ui.define([
 				Ts: aSenderData[0].Ts,
 				Tsd: aSenderData[0].Tsd,
 				Posnr: aSenderData[0].Posnr,
-				SendAmt: aSenderData[0].SendAmt,
-				KeySDN: aRecData
+				SendAmt: parseFloat(aSenderData[0].SendAmt),
+				KeySDN: recData
 			};
 
 			//var totalData = this.getView().getModel("totalData").getData();
