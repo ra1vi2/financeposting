@@ -213,6 +213,7 @@ sap.ui.define([
 				item.OrgSdn = that.selectedOrgSDN;
 				delete item["Bldat"];
 				delete item["Posnr"];
+				delete item["__metadata"];
 				recData.push(item);
 			});
 
