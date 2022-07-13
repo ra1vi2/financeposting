@@ -115,25 +115,26 @@ sap.ui.define([
 		onPressCalculate: function() {
 			if (!this.selectedOrgSDN) {
 				MessageBox.error("Enter an Original SDN!");
+			} else {
+				var oModel = this.getView().getModel();
+				var aFilter = [];
+				var that = this;
+				aFilter.push(new Filter("OrgSdn", FilterOperator.EQ, this.selectedOrgSDN));
+				oModel.read("/CalculateSet", {
+					filters: aFilter,
+					success: function(oResponse) {
+						that.getView().getModel("orgsdnmodel").setData(oResponse.results);
+						var oModelRec = that.getView().getModel("selectedOrgSDN");
+						var oData = oModelRec.getData();
+						oData[0].SendAmt = oResponse.results[0].SendAmt;
+						oData[0].SendQty = oResponse.results[0].SendQty;
+						oModelRec.setData(oData);
+					},
+					error: function(oError) {
+						MessageBox.error(JSON.parse(oError.responseText).error.message.value);
+					}
+				});
 			}
-			var oModel = this.getView().getModel();
-			var aFilter = [];
-			var that = this;
-			aFilter.push(new Filter("OrgSdn", FilterOperator.EQ, this.selectedOrgSDN));
-			oModel.read("/CalculateSet", {
-				filters: aFilter,
-				success: function(oResponse) {
-					that.getView().getModel("orgsdnmodel").setData(oResponse.results);
-					var oModelRec = that.getView().getModel("selectedOrgSDN");
-					var oData = oModelRec.getData();
-					oData[0].SendAmt = oResponse.results[0].SendAmt;
-					oData[0].SendQty = oResponse.results[0].SendQty;
-					oModelRec.setData(oData);
-				},
-				error: function(oError) {
-					MessageBox.error(JSON.parse(oError.responseText).error.message.value);
-				}
-			});
 		},
 		onSetDocumentDate: function(oEvent) {
 			this.byId("idPostingDate").setMinDate(oEvent.getSource().getDateValue());
@@ -213,8 +214,26 @@ sap.ui.define([
 				totalAmount: totalAmount
 			});
 		},
+		onPressDeleteReceiver: function(oEvent) {
+			var oDetailModel = this.getView().getModel("receiverdata");
+			var oDetailData = oDetailModel.getData();
+			var Id = oEvent
+				.getSource()
+				.getParent()
+				.getParent().getSelectedItem().getId();
+			var index = Id.charAt(Id.length - 1);
+			oDetailData.splice(index, 1);
+			oDetailModel.setData(oDetailData);
+			oEvent
+				.getSource()
+				.getParent()
+				.getParent().setSelectedItem(oEvent
+					.getSource()
+					.getParent()
+					.getParent().getSelectedItem(), false);
+		},
 		onPressPostDocument: function() {
-
+			var IsError = false;
 			var oModel = this.getView().getModel();
 			var oRecModel = this.getView().getModel("receiverdata");
 			var aRecData = oRecModel.getData();
@@ -229,9 +248,13 @@ sap.ui.define([
 			aRecData.forEach(function(item, index) {
 				if (item.RecQty <= 0) {
 					that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[7].setValueState("Error");
+					IsError = true;
+					return;
 				}
 				if (item.RecAmt <= 0) {
 					that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[8].setValueState("Error");
+					IsError = true;
+					return;
 				}
 				item.RecQty = item.RecQty;
 				item.RecAmt = item.RecAmt;
@@ -241,34 +264,31 @@ sap.ui.define([
 				delete item["__metadata"];
 				recData.push(item);
 			});
+			if (!IsError) {
+				var oData = {
+					Bldat: aMainData.DocDate,
+					FcnJon: aSenderData[0].FcnJon,
+					Budat: aMainData.PostingDate,
+					IcnJon: aSenderData[0].IcnJon,
+					SendToSabrs: aMainData.SendToSABRAS,
+					KeyOp: aSenderData[0].KeyOp,
+					OrgSdn: this.selectedOrgSDN,
+					Shop: aSenderData[0].Shop,
+					Ts: aSenderData[0].Ts,
+					Tsd: aSenderData[0].Tsd,
+					Posnr: aSenderData[0].Posnr,
+					KeySDN: recData
+				};
 
-			var oData = {
-				Bldat: aMainData.DocDate,
-				FcnJon: aSenderData[0].FcnJon,
-				Budat: aMainData.PostingDate,
-				IcnJon: aSenderData[0].IcnJon,
-				SendToSabrs: aMainData.SendToSABRAS,
-				KeyOp: aSenderData[0].KeyOp,
-				OrgSdn: this.selectedOrgSDN,
-				Shop: aSenderData[0].Shop,
-				Ts: aSenderData[0].Ts,
-				Tsd: aSenderData[0].Tsd,
-				Posnr: aSenderData[0].Posnr,
-				KeySDN: recData
-			};
-
-			//var totalData = this.getView().getModel("totalData").getData();
-
-			//if(parseFloat(totalData.totalQty) > )
-
-			oModel.create("/PostHeaderSet", oData, {
-				success: function(oResponse) {
-					MessageBox.success("Data has been Posted");
-				},
-				error: function(oError) {
-					MessageBox.error(JSON.parse(oError.responseText).error.message.value);
-				}
-			});
+				oModel.create("/PostHeaderSet", oData, {
+					success: function(oResponse) {
+						MessageBox.success("Data has been Posted");
+					},
+					error: function(oError) {
+						MessageBox.error(JSON.parse(oError.responseText).error.message.value);
+					}
+				});
+			}
 		}
 
 	});

@@ -6,7 +6,7 @@
 			</OverflowToolbar>
 		</infoToolbar>
 		<columns>
-			<Column >
+			<Column>
 				<Text text="FCN-JON"/>
 			</Column>
 			<Column>
@@ -15,13 +15,13 @@
 			<Column>
 				<Text text="KEYOP"/>
 			</Column>
-			<Column>
+			<Column >
 				<Text text="SHOP"/>
 			</Column>
-			<Column>
+			<Column >
 				<Text text="TS/TSD"/>
 			</Column>
-			<Column width="18rem">
+			<Column width="15rem">
 				<Text text="WBS Element"/>
 			</Column>
 			<Column>

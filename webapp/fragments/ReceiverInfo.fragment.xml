@@ -1,10 +1,11 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Table id="idRecInfoTab" class="sapUiMediumMarginTop" items="{receiverdata>/}">
+	<Table id="idRecInfoTab" class="sapUiMediumMarginTop" items="{receiverdata>/}" mode="SingleSelectMaster">
 		<headerToolbar>
 			<OverflowToolbar>
 				<content>
 					<ToolbarSpacer/>
 					<Button text="Add" type="Emphasized" press="onPressAddReceiver"/>
+					<Button text="Delete" type="Reject" press="onPressDeleteReceiver"/>
 				</content>
 			</OverflowToolbar>
 		</headerToolbar>
@@ -14,25 +15,25 @@
 			</OverflowToolbar>
 		</infoToolbar>
 		<columns>
-			<Column >
+			<Column  width="12rem">
 				<Text text="FCN-JON"/>
 			</Column>
 			<Column>
 				<Text text="ICN-JON"/>
 			</Column>
-			<Column>
+			<Column  width="4rem">
 				<Text text="KEYOP"/>
 			</Column>
-			<Column>
+			<Column width="4rem">
 				<Text text="SHOP"/>
 			</Column>
-			<Column>
+			<Column width="6rem">
 				<Text text="TS/TSD"/>
 			</Column>
-			<Column width="18rem">
+			<Column width="15rem">
 				<Text text="WBS Element"/>
 			</Column>
-			<Column>
+			<Column width="15rem">
 				<Text text="SDN for Posting"/>
 			</Column>
 			<Column>
