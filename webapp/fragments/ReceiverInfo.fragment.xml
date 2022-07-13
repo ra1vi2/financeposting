@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Table class="sapUiMediumMarginTop" items="{receiverdata>/}">
+	<Table id="idRecInfoTab" class="sapUiMediumMarginTop" items="{receiverdata>/}">
 		<headerToolbar>
 			<OverflowToolbar>
 				<content>
@@ -29,7 +29,7 @@
 			<Column>
 				<Text text="TS/TSD"/>
 			</Column>
-			<Column>
+			<Column width="18rem">
 				<Text text="WBS Element"/>
 			</Column>
 			<Column>

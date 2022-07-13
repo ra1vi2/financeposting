@@ -21,7 +21,7 @@
 			<Column>
 				<Text text="TS/TSD"/>
 			</Column>
-			<Column>
+			<Column width="18rem">
 				<Text text="WBS Element"/>
 			</Column>
 			<Column>

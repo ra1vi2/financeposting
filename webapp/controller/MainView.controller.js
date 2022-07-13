@@ -3,8 +3,9 @@ sap.ui.define([
 	"./MainBO",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/ui/model/json/JSONModel"
-], function(Controller, BO, Filter, FilterOperator, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/m/MessageBox"
+], function(Controller, BO, Filter, FilterOperator, JSONModel, MessageBox) {
 	"use strict";
 
 	return Controller.extend("comfinanceposting.controller.MainView", {
@@ -70,16 +71,15 @@ sap.ui.define([
 			var bldat = this.getView().getModel("MainData").getData().DocDate;
 			var posnr = this.getView().getModel("selectedOrgSDN").getData()[0].Posnr;
 			this.getView().getModel("FcnJonVHFilter").setData({
-				Bldat : bldat,
-				Posnr : posnr
+				Bldat: bldat,
+				Posnr: posnr
 			});
 			var globalThis = this;
-			
+
 			//get current index
 			var sPath = oEvent.getSource().getParent().getBindingContext("receiverdata").getPath();
 			this.currentRecFcnJonindex = sPath.charAt(sPath.length - 1);
-			
-			
+
 			var aFilter = [];
 			//var oData = this.getView().getModel("FcnJonVHFilter").getData();
 			//aFilter.push(new Filter("Bldat", FilterOperator.EQ, bldat));
@@ -103,16 +103,19 @@ sap.ui.define([
 			var oModel = this.getView().getModel("receiverdata");
 			var aData = oModel.getData();
 			//aData[this.currentRecFcnJonindex].FcnJon = this.selectedFcnJon;
-			
+
 			var selectedObject = oEvent.getSource()._oSelectedItems.items;
 			var data = selectedObject["FCNJONVHSet('" + this.selectedFcnJon + "')"];
 			aData[this.currentRecFcnJonindex] = data;
 			oModel.setData(aData);
-		//	var aSelectedData = [];
-		//	aSelectedData.push(data);
-		//	this.getView().setModel(new JSONModel(aSelectedData), "selectedOrgSDN");
+			//	var aSelectedData = [];
+			//	aSelectedData.push(data);
+			//	this.getView().setModel(new JSONModel(aSelectedData), "selectedOrgSDN");
 		},
 		onPressCalculate: function() {
+			if (!this.selectedOrgSDN) {
+				MessageBox.error("Enter an Original SDN!");
+			}
 			var oModel = this.getView().getModel();
 			var aFilter = [];
 			var that = this;
@@ -128,7 +131,7 @@ sap.ui.define([
 					oModelRec.setData(oData);
 				},
 				error: function(oError) {
-					sap.m.MessageBox.error();
+					MessageBox.error(JSON.parse(oError.responseText).error.message.value);
 				}
 			});
 		},
@@ -143,14 +146,14 @@ sap.ui.define([
 				RecFcnJon: "",
 				RecQty: 0,
 				RecAmt: 0,
-				OrgSdn : that.selectedOrgSDN
+				OrgSdn: that.selectedOrgSDN
 			});
 			oModel.setData(aData);
 		},
 		onSearchOriginalSDN: function() {
 			this._filterVHTable("OriginalSDNFilter", "/OrginialSDNVHSet");
 		},
-		onSearchFcnJon:function(){
+		onSearchFcnJon: function() {
 			this._filterVHTable("FcnJonVHFilter", "/FCNJONVHSet");
 		},
 		_filterVHTable: function(sFilterModel, sEntitySet) {
@@ -161,25 +164,40 @@ sap.ui.define([
 				aFilter = BO.getVHFilterQuery(oFilterQueryData);
 				//this._oValueHelpDialog.setBusy(true);
 				this._oValueHelpDialog.getTableAsync().then(
-					function(oTable) {
-						oTable.setBusy(true);
-						if (oTable.bindRows) {
-							oTable.bindAggregation("rows", {
-								path: sEntitySet,
-								filters: aFilter
-							});
-						}
-						this._oValueHelpDialog.update();
-						oTable.setBusy(false);
-					}.bind(this)
-				);
+						function(oTable) {
+							oTable.setBusy(true);
+							if (oTable.bindRows) {
+								oTable.bindAggregation("rows", {
+									path: sEntitySet,
+									filters: aFilter
+								});
+							}
+							this._oValueHelpDialog.update();
+							oTable.setBusy(false);
+						}.bind(this)
+					)
+					.fail(function(oError) {
+						MessageBox.error(JSON.parse(oError.responseText).error.message.value);
+					});
 			}
 		},
-		onChangeAmount: function() {
-			this.updateQtyAmount();
+		onChangeAmount: function(oEvent) {
+			if (oEvent.getParameter("value") <= 0) {
+				oEvent.getSource().setValueState("Error");
+				oEvent.getSource().setValueStateText("Amount must be greater than zero!");
+			} else {
+				oEvent.getSource().setValueState("None");
+				this.updateQtyAmount();
+			}
 		},
-		onChangeQty: function() {
-			this.updateQtyAmount();
+		onChangeQty: function(oEvent) {
+			if (oEvent.getParameter("value") <= 0) {
+				oEvent.getSource().setValueState("Error");
+				oEvent.getSource().setValueStateText("Quantity must be greater than zero!");
+			} else {
+				oEvent.getSource().setValueState("None");
+				this.updateQtyAmount();
+			}
 		},
 		updateQtyAmount: function() {
 			var oModel = this.getView().getModel("receiverdata");
@@ -196,6 +214,7 @@ sap.ui.define([
 			});
 		},
 		onPressPostDocument: function() {
+
 			var oModel = this.getView().getModel();
 			var oRecModel = this.getView().getModel("receiverdata");
 			var aRecData = oRecModel.getData();
@@ -205,11 +224,17 @@ sap.ui.define([
 
 			var oSenderModel = this.getView().getModel("selectedOrgSDN");
 			var aSenderData = oSenderModel.getData();
-	        var that = this;
+			var that = this;
 			var recData = [];
-			aRecData.forEach(function(item){
-				item.RecQty = parseFloat(item.RecQty);
-				item.RecAmt = parseFloat(item.RecAmt);
+			aRecData.forEach(function(item, index) {
+				if (item.RecQty <= 0) {
+					that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[7].setValueState("Error");
+				}
+				if (item.RecAmt <= 0) {
+					that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[8].setValueState("Error");
+				}
+				item.RecQty = item.RecQty;
+				item.RecAmt = item.RecAmt;
 				item.OrgSdn = that.selectedOrgSDN;
 				delete item["Bldat"];
 				delete item["Posnr"];
@@ -229,7 +254,6 @@ sap.ui.define([
 				Ts: aSenderData[0].Ts,
 				Tsd: aSenderData[0].Tsd,
 				Posnr: aSenderData[0].Posnr,
-				SendAmt: parseFloat(aSenderData[0].SendAmt),
 				KeySDN: recData
 			};
 
@@ -239,10 +263,10 @@ sap.ui.define([
 
 			oModel.create("/PostHeaderSet", oData, {
 				success: function(oResponse) {
-					sap.m.MessageBox.success("Data has been Posted");
+					MessageBox.success("Data has been Posted");
 				},
 				error: function(oError) {
-					sap.m.MessageBox.error();
+					MessageBox.error(JSON.parse(oError.responseText).error.message.value);
 				}
 			});
 		}
