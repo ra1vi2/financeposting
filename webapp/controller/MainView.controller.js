@@ -175,6 +175,7 @@ sap.ui.define([
 							}
 							this._oValueHelpDialog.update();
 							oTable.setBusy(false);
+							oTable.setNoData("No Records found, Use Different filters.");
 						}.bind(this)
 					);
 			}
