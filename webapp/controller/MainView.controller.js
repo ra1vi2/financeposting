@@ -176,10 +176,7 @@ sap.ui.define([
 							this._oValueHelpDialog.update();
 							oTable.setBusy(false);
 						}.bind(this)
-					)
-					.fail(function(oError) {
-						MessageBox.error(JSON.parse(oError.responseText).error.message.value);
-					});
+					);
 			}
 		},
 		onChangeAmount: function(oEvent) {
