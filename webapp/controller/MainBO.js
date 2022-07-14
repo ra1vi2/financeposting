@@ -10,6 +10,15 @@ sap.ui.define(
 	function(JSONModel, Filter, FilterOperator, Fragment, Token) {
 		"use strict";
 		return {
+			validate: function(total, orgSdn) {
+				var totalData = total.getData();
+				orgSDNData = orgSdn.getData();
+				if (totalData.totalQty > orgSDNData[0].AvailQty) {
+					return true;
+				} else {
+					return false;
+				}
+			},
 			onInputVH: function(
 				oControl,
 				ColModel,
@@ -34,10 +43,10 @@ sap.ui.define(
 								oTable.setModel(oDataModel);
 								oTable.setModel(ColModel, "columns");
 
-							/*	oTable.bindAggregation("rows", {
-									path: sEntity,
-									filters: aFilter
-								});*/
+								/*	oTable.bindAggregation("rows", {
+										path: sEntity,
+										filters: aFilter
+									});*/
 
 								if (oTable.bindItems) {
 									oTable.bindAggregation("items", sEntity, function() {
@@ -67,7 +76,7 @@ sap.ui.define(
 				if (aTokens.length > 0) {
 					oControl.setSelectedKey(aTokens[0].getKey());
 					oControl.setValue(aTokens[0].getKey());
-				    
+
 				}
 				globalThis._oValueHelpDialog.close();
 			},
@@ -130,7 +139,7 @@ sap.ui.define(
 				}
 				if (sRequestedVH === "FcnJonVH") {
 					return new JSONModel({
-						cols: [ {
+						cols: [{
 							label: "RecFcnJon",
 							template: "RecFcnJon"
 						}, {

@@ -211,6 +211,12 @@ sap.ui.define([
 				totalQty: totalQty,
 				totalAmount: totalAmount
 			});
+			
+			var orgModel = this.getView().getModel("orgsdnmodel");
+			var orgData = orgModel.getData();
+			orgData[0].AllocAmt = totalAmount;
+			orgData[0].RemainBal = parseFloat(orgData[0].AvailBal) - parseFloat(totalQty);
+			orgModel.setData(orgData);
 		},
 		onPressDeleteReceiver: function(oEvent) {
 			var oDetailModel = this.getView().getModel("receiverdata");
@@ -229,7 +235,7 @@ sap.ui.define([
 					.getSource()
 					.getParent()
 					.getParent().getSelectedItem(), false);
-                        this.updateQtyAmount();
+			this.updateQtyAmount();
 		},
 		onPressPostDocument: function() {
 			var IsError = false;
@@ -244,6 +250,11 @@ sap.ui.define([
 			var aSenderData = oSenderModel.getData();
 			var that = this;
 			var recData = [];
+			
+			if(BO.validate(this.getView().getModel("totalData"), this.getView().getModel("orgsdnmodel"))){
+				MessageBox.error("Receiver quantity can not exceed OrgSDN available quantity!");
+			}else{
+			
 			aRecData.forEach(function(item, index) {
 				if (item.RecQty <= 0) {
 					that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[7].setValueState("Error");
@@ -287,6 +298,7 @@ sap.ui.define([
 						MessageBox.error(JSON.parse(oError.responseText).error.message.value);
 					}
 				});
+			}
 			}
 		}
 
