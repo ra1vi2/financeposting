@@ -231,6 +231,7 @@ sap.ui.define([
 					.getSource()
 					.getParent()
 					.getParent().getSelectedItem(), false);
+                        this.updateQtyAmount();
 		},
 		onPressPostDocument: function() {
 			var IsError = false;
