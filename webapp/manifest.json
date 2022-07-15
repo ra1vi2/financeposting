@@ -1,7 +1,7 @@
 {
 	"_version": "1.7.0",
 	"sap.app": {
-		"id": "comfinanceposting",
+		"id": "com.finance.posting",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -47,7 +47,7 @@
 	},
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "comfinanceposting.view.MainView",
+			"viewName": "com.finance.posting.view.MainView",
 			"type": "XML"
 		},
 		"dependencies": {
@@ -70,7 +70,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "comfinanceposting.i18n.i18n"
+					"bundleName": "com.finance.posting.i18n.i18n"
 				}
 			},
 			"": {

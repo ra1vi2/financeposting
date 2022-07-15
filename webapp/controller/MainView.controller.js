@@ -8,7 +8,7 @@ sap.ui.define([
 ], function(Controller, BO, Filter, FilterOperator, JSONModel, MessageBox) {
 	"use strict";
 
-	return Controller.extend("comfinanceposting.controller.MainView", {
+	return Controller.extend("com.finance.posting.controller.MainView", {
 		onInit: function() {
 			this.getView().setModel(new JSONModel({}), "OriginalSDNFilter");
 			this.getView().setModel(new JSONModel({}), "FcnJonVHFilter");
@@ -39,7 +39,7 @@ sap.ui.define([
 				oEvent.getSource(),
 				BO.createColumnModel("OriginalSDN"),
 				this.getView().getModel(),
-				"comfinanceposting.fragments.OriginalSDNVH",
+				"com.finance.posting.fragments.OriginalSDNVH",
 				globalThis,
 				"/OrginialSDNVHSet",
 				aFilter
@@ -89,7 +89,7 @@ sap.ui.define([
 				oEvent.getSource(),
 				BO.createColumnModel("FcnJonVH"),
 				this.getView().getModel(),
-				"comfinanceposting.fragments.FcnJonVH",
+				"com.finance.posting.fragments.FcnJonVH",
 				globalThis,
 				"/FCNJONVHSet",
 				aFilter

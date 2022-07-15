@@ -1,4 +1,4 @@
-<mvc:View controllerName="comfinanceposting.controller.MainView" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="com.finance.posting.controller.MainView" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core">
 	<App>
 		<pages>
@@ -12,9 +12,9 @@
 						<Label text="Send To SABRS" class="sapUiSmallMarginTop sapUiSmallMarginBegin "/>
 						<CheckBox  selected="{MainData>/SendToSABRAS}"/>
 					</HBox>
-					<core:Fragment fragmentName="comfinanceposting.fragments.StdDocTable" type="XML"/>
-					<core:Fragment fragmentName="comfinanceposting.fragments.SenderInfo" type="XML"/>
-					<core:Fragment fragmentName="comfinanceposting.fragments.ReceiverInfo" type="XML"/>
+					<core:Fragment fragmentName="com.finance.posting.fragments.StdDocTable" type="XML"/>
+					<core:Fragment fragmentName="com.finance.posting.fragments.SenderInfo" type="XML"/>
+					<core:Fragment fragmentName="com.finance.posting.fragments.ReceiverInfo" type="XML"/>
 				</content>
 				<footer>
 					<OverflowToolbar id="otbFooter">
