@@ -12,7 +12,7 @@ sap.ui.define(
 		return {
 			validate: function(total, orgSdn) {
 				var totalData = total.getData();
-				orgSDNData = orgSdn.getData();
+				var orgSDNData = orgSdn.getData();
 				if (totalData.totalQty > orgSDNData[0].AvailQty) {
 					return true;
 				} else {

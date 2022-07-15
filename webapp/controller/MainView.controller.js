@@ -165,19 +165,19 @@ sap.ui.define([
 				aFilter = BO.getVHFilterQuery(oFilterQueryData);
 				//this._oValueHelpDialog.setBusy(true);
 				this._oValueHelpDialog.getTableAsync().then(
-						function(oTable) {
-							oTable.setBusy(true);
-							if (oTable.bindRows) {
-								oTable.bindAggregation("rows", {
-									path: sEntitySet,
-									filters: aFilter
-								});
-							}
-							this._oValueHelpDialog.update();
-							oTable.setBusy(false);
-							oTable.setNoData("No Records found, Use Different filters.");
-						}.bind(this)
-					);
+					function(oTable) {
+						oTable.setBusy(true);
+						if (oTable.bindRows) {
+							oTable.bindAggregation("rows", {
+								path: sEntitySet,
+								filters: aFilter
+							});
+						}
+						this._oValueHelpDialog.update();
+						oTable.setBusy(false);
+						oTable.setNoData("No Records found, Use Different filters.");
+					}.bind(this)
+				);
 			}
 		},
 		onChangeAmount: function(oEvent) {
@@ -211,12 +211,18 @@ sap.ui.define([
 				totalQty: totalQty,
 				totalAmount: totalAmount
 			});
-			
+
 			var orgModel = this.getView().getModel("orgsdnmodel");
 			var orgData = orgModel.getData();
 			orgData[0].AllocAmt = totalAmount;
 			orgData[0].RemainBal = parseFloat(orgData[0].AvailBal) - parseFloat(totalQty);
 			orgModel.setData(orgData);
+
+			var senderModel = this.getView().getModel("selectedOrgSDN");
+			var senderData = senderModel.getData();
+			senderData[0].SendAmt = totalAmount;
+			senderData[0].SendQty = totalQty;
+			senderModel.setData(senderData);
 		},
 		onPressDeleteReceiver: function(oEvent) {
 			var oDetailModel = this.getView().getModel("receiverdata");
@@ -250,55 +256,55 @@ sap.ui.define([
 			var aSenderData = oSenderModel.getData();
 			var that = this;
 			var recData = [];
-			
-			if(BO.validate(this.getView().getModel("totalData"), this.getView().getModel("orgsdnmodel"))){
-				MessageBox.error("Receiver quantity can not exceed OrgSDN available quantity!");
-			}else{
-			
-			aRecData.forEach(function(item, index) {
-				if (item.RecQty <= 0) {
-					that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[7].setValueState("Error");
-					IsError = true;
-					return;
-				}
-				if (item.RecAmt <= 0) {
-					that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[8].setValueState("Error");
-					IsError = true;
-					return;
-				}
-				item.RecQty = item.RecQty;
-				item.RecAmt = item.RecAmt;
-				item.OrgSdn = that.selectedOrgSDN;
-				delete item["Bldat"];
-				delete item["Posnr"];
-				delete item["__metadata"];
-				recData.push(item);
-			});
-			if (!IsError) {
-				var oData = {
-					Bldat: aMainData.DocDate,
-					FcnJon: aSenderData[0].FcnJon,
-					Budat: aMainData.PostingDate,
-					IcnJon: aSenderData[0].IcnJon,
-					SendToSabrs: aMainData.SendToSABRAS,
-					KeyOp: aSenderData[0].KeyOp,
-					OrgSdn: this.selectedOrgSDN,
-					Shop: aSenderData[0].Shop,
-					Ts: aSenderData[0].Ts,
-					Tsd: aSenderData[0].Tsd,
-					Posnr: aSenderData[0].Posnr,
-					KeySDN: recData
-				};
 
-				oModel.create("/PostHeaderSet", oData, {
-					success: function(oResponse) {
-						MessageBox.success("Data has been Posted");
-					},
-					error: function(oError) {
-						MessageBox.error(JSON.parse(oError.responseText).error.message.value);
+			if (BO.validate(this.getView().getModel("totalData"), this.getView().getModel("orgsdnmodel"))) {
+				MessageBox.error("Receiver quantity can not exceed OrgSDN available quantity!");
+			} else {
+
+				aRecData.forEach(function(item, index) {
+					if (item.RecQty <= 0) {
+						that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[7].setValueState("Error");
+						IsError = true;
+						return;
 					}
+					if (item.RecAmt <= 0) {
+						that.getView().byId("idRecInfoTab").getAggregation("items")[index].getAggregation("cells")[8].setValueState("Error");
+						IsError = true;
+						return;
+					}
+					item.RecQty = item.RecQty;
+					item.RecAmt = item.RecAmt;
+					item.OrgSdn = that.selectedOrgSDN;
+					delete item["Bldat"];
+					delete item["Posnr"];
+					delete item["__metadata"];
+					recData.push(item);
 				});
-			}
+				if (!IsError) {
+					var oData = {
+						Bldat: aMainData.DocDate,
+						FcnJon: aSenderData[0].FcnJon,
+						Budat: aMainData.PostingDate,
+						IcnJon: aSenderData[0].IcnJon,
+						SendToSabrs: aMainData.SendToSABRAS,
+						KeyOp: aSenderData[0].KeyOp,
+						OrgSdn: this.selectedOrgSDN,
+						Shop: aSenderData[0].Shop,
+						Ts: aSenderData[0].Ts,
+						Tsd: aSenderData[0].Tsd,
+						Posnr: aSenderData[0].Posnr,
+						KeySDN: recData
+					};
+
+					oModel.create("/PostHeaderSet", oData, {
+						success: function(oResponse) {
+							MessageBox.success("Data has been Posted");
+						},
+						error: function(oError) {
+							MessageBox.error(JSON.parse(oError.responseText).error.message.value);
+						}
+					});
+				}
 			}
 		}
 
